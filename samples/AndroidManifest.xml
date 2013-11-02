@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" 
+	android:versionCode="011" 
+	android:versionName="0.1.1" 
+	package="com.michaelrnovak.objectcursor.samples">
+
+	<uses-sdk android:minSdkVersion="7" android:targetSdkVersion="17"/>
+
+	<application android:label="@string/application_name">
+
+	</application>
+</manifest>

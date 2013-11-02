@@ -1,0 +1,31 @@
+#generate output files.
+bin/
+gen/
+out/
+obj/
+
+#local configuration files
+local.properties
+proguard.cfg
+
+#workspace files.
+.DS_Store
+*.iws
+*.~
+.idea/
+
+#signing keys
+*.keystore
+
+#android junk files
+lint.xml
+target/
+classes/
+gen*/
+tmp/
+
+#project files make things messy.
+.project
+.classpath
+*.iml
+*.ipr
