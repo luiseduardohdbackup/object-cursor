@@ -10,7 +10,7 @@
 
     <groupId>com.michaelrnovak.objectcursor</groupId>
     <artifactId>parent</artifactId>
-    <version>0.1.1-SNAPSHOT</version>
+    <version>1.0.0</version>
     <packaging>pom</packaging>
 
     <name>ObjectCursor (Parent)</name>
@@ -27,7 +27,7 @@
         <url>https://github.com/michaelrnovak/objectcursor</url>
         <connection>scm:git:git://github.com/michaelrnovak/objectcursor.git</connection>
         <developerConnection>scm:git:git@github.com:michaelrnovak/objectcursor.git</developerConnection>
-        <tag>0.1.1</tag>
+        <tag>1.0.0</tag>
     </scm>
 
     <developers>
