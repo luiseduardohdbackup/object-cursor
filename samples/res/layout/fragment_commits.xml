@@ -16,7 +16,23 @@
  * limitations under the License.
  */
 -->
-<resources>
-    <string name="application_name">ObjectCursor Samples</string>
-    <string name="empty_message">Loading commits for the ObjectCursor project&#8230;</string>
-</resources>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <ListView
+        android:id="@android:id/list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <TextView
+        android:id="@android:id/empty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:drawableTop="@drawable/ic_empty"
+        android:drawablePadding="10dp"
+        android:text="@string/empty_message" />
+
+</LinearLayout>

@@ -16,6 +16,7 @@
  */
 package com.michaelrnovak.objectcursor;
 
+import android.content.ContentValues;
 import android.database.Cursor;
 
 /**
@@ -30,4 +31,11 @@ public interface CursorCreator<T> {
      * @return A real object built from the current row of the cursor.
      */
     T createFromCursor(Cursor cursor);
+
+    /**
+     * Creates a ContentValues object for use with ContentProvider operations.
+     *
+     * @return ContentValues object representing the properties in the implementing object.
+     */
+    ContentValues toContentValues();
 }

@@ -63,6 +63,10 @@ public abstract class ObjectCursorAdapter<T> extends BaseAdapter implements Filt
         }
     }
 
+    protected Context getContext() {
+        return mContext;
+    }
+
     public ObjectCursor<T> getObjectCursor() {
         return mObjectCursor;
     }
@@ -163,6 +167,15 @@ public abstract class ObjectCursorAdapter<T> extends BaseAdapter implements Filt
 
     public View newDropDownView(Context context, T model, ViewGroup parent) {
         return newView(context, model, parent);
+    }
+
+    @Override
+    public void changeObjectCursor(ObjectCursor<T> objectCursor) {
+        ObjectCursor<T> old = swapObjectCursor(objectCursor);
+
+        if (old != null) {
+            old.close();
+        }
     }
 
     public ObjectCursor<T> swapObjectCursor(ObjectCursor<T> newObjectCursor) {

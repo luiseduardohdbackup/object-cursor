@@ -1,5 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
 /*
  * Copyright (C) 2013 Michael Novak <michael.novakjr@gmail.com>
  *
@@ -15,8 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
--->
-<resources>
-    <string name="application_name">ObjectCursor Samples</string>
-    <string name="empty_message">Loading commits for the ObjectCursor project&#8230;</string>
-</resources>
+package com.michaelrnovak.objectcursor.samples.service;
+
+import retrofit.http.GET;
+
+import java.util.List;
+
+public interface GithubService {
+
+    @GET("/repos/michaelrnovak/objectcursor/commits")
+    List<CommitsDownloadService.GithubCommit> getObjectCursorCommits();
+}
