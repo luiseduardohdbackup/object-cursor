@@ -17,15 +17,19 @@ package com.michaelrnovak.objectcursor.widget;
 
 import android.content.Context;
 import android.database.ContentObserver;
+import android.database.Cursor;
 import android.database.DataSetObserver;
 import android.os.Handler;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Filter;
+import android.widget.Filterable;
 
 import com.michaelrnovak.objectcursor.ObjectCursor;
 
-public abstract class ObjectCursorAdapter<T> extends BaseAdapter {
+public abstract class ObjectCursorAdapter<T> extends BaseAdapter implements Filterable,
+        ObjectCursorFilter.ObjectCursorFilterClient<T> {
     protected Context mContext;
     protected ObjectCursor<T> mObjectCursor;
 
@@ -34,6 +38,9 @@ public abstract class ObjectCursorAdapter<T> extends BaseAdapter {
 
     protected ChangeObserver mChangeObserver;
     protected MyDataSetObserver mDataSetObserver;
+
+    protected ObjectFilterQueryProvider<T> mFilterQueryProvider;
+    protected ObjectCursorFilter<T> mObjectCursorFilter;
 
     public ObjectCursorAdapter(Context context, ObjectCursor<T> cursor) {
         init(context, cursor);
@@ -188,6 +195,37 @@ public abstract class ObjectCursorAdapter<T> extends BaseAdapter {
         }
 
         return oldObjectCursor;
+    }
+
+    @Override
+    public CharSequence convertToString(Cursor objectCursor) {
+        return objectCursor == null ? "" : objectCursor.toString();
+    }
+
+    @Override
+    public ObjectCursor<T> runQueryOnBackgroundThread(CharSequence constraint) {
+        if (mFilterQueryProvider != null) {
+            return mFilterQueryProvider.runQuery(constraint);
+        }
+
+        return mObjectCursor;
+    }
+
+    @Override
+    public Filter getFilter() {
+        if (mObjectCursorFilter == null) {
+            mObjectCursorFilter = new ObjectCursorFilter<T>(this);
+        }
+
+        return mObjectCursorFilter;
+    }
+
+    public ObjectFilterQueryProvider<T> getFilterQueryProvider() {
+        return mFilterQueryProvider;
+    }
+
+    public void setFilterQueryProvider(ObjectFilterQueryProvider<T> filterQueryProvider) {
+        mFilterQueryProvider = filterQueryProvider;
     }
 
     private class ChangeObserver extends ContentObserver {

@@ -14,7 +14,7 @@
     <packaging>pom</packaging>
 
     <name>ObjectCursor (Parent)</name>
-    <description>CHANGE ME</description>
+    <description>Object based Cursor API inspired by the Gmail team.</description>
     <url>https://github.com/michaelrnovak/objectcursor</url>
     <inceptionYear>2013</inceptionYear>
 
@@ -74,7 +74,6 @@
         <maven-compiler.version>3.0</maven-compiler.version>
 
         <android-maven-plugin.version>3.6.0</android-maven-plugin.version>
-        <build-helper.version>1.8</build-helper.version>
         <maven-release-plugin.version>2.4</maven-release-plugin.version>
         <checkstyle.version>2.10</checkstyle.version>
     </properties>
