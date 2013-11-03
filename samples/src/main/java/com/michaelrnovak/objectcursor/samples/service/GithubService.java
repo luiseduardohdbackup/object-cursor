@@ -21,6 +21,6 @@ import java.util.List;
 
 public interface GithubService {
 
-    @GET("/repos/michaelrnovak/objectcursor/commits")
+    @GET("/repos/michaelrnovak/object-cursor/commits")
     List<CommitsDownloadService.GithubCommit> getObjectCursorCommits();
 }

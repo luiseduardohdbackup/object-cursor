@@ -91,13 +91,14 @@ public class CommitsDownloadService extends IntentService {
         for (GithubCommit commit : commits) {
             ContentValues values = new ContentValues();
 
+            values.put(Commits.SHA, commit.sha);
             values.put(Commits.MESSAGE, commit.commit.message);
             values.put(Commits.URL, commit.url);
             values.put(Commits.AUTHOR_AVATAR, commit.author.avatar_url);
             values.put(Commits.AUTHOR_EMAIL, commit.commit.author.email);
             values.put(Commits.AUTHOR_NAME, commit.commit.author.name);
 
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ssZ");
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss'Z'");
 
             try {
                 values.put(Commits.COMMIT_DATE, dateFormat.parse(commit.commit.author.date).getTime());

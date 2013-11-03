@@ -23,8 +23,8 @@
 
     <ImageView
         android:id="@+id/view_avatar"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
         android:contentDescription="@null" />
 
     <TextView
@@ -32,13 +32,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toRightOf="@id/view_avatar"
-        android:layout_marginLeft="5dp" />
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="3dp"
+        android:textStyle="bold"
+        android:singleLine="true"
+        android:ellipsize="end" />
 
     <TextView
         android:id="@+id/view_message"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/view_avatar"
-        android:layout_marginTop="5dp" />
+        android:layout_marginTop="5dp"
+        android:textColor="#666666" />
 
 </RelativeLayout>

@@ -48,6 +48,8 @@ public class CommitsListFragment extends ListFragment implements LoaderManager.L
         super.onActivityCreated(savedInstanceState);
 
         mListAdapter = new CommitsListAdapter(getActivity(), null);
+        setListAdapter(mListAdapter);
+
         getLoaderManager().initLoader(0, null, this);
 
         Intent intent = new Intent(getActivity(), CommitsDownloadService.class);
@@ -57,7 +59,7 @@ public class CommitsListFragment extends ListFragment implements LoaderManager.L
     @Override
     public Loader<ObjectCursor<Commit>> onCreateLoader(int id, Bundle bundle) {
         return new ObjectCursorLoader<Commit>(getActivity(), SampleContract.Commits.CONTENT_URI,
-                Commit.Query.PROJECTION, SampleContract.Commits.COMMIT_DATE + "DESC", Commit.FACTORY);
+                Commit.Query.PROJECTION, SampleContract.Commits.COMMIT_DATE + " DESC", Commit.FACTORY);
     }
 
     @Override
