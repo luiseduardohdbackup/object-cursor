@@ -1,6 +1,8 @@
 ObjectCursor
 ============
 
+NOTE: This library is close to a 1.0 release but isn't quite there yet. Feedback on the library is greatly appreciated.
+
 Implementation of Cursor that supports easily working with Java objects. 
 
 Google I/O 2013 included a great talk where the contents of this library are discussed. You can find it [here][1]
@@ -8,15 +10,7 @@ Google I/O 2013 included a great talk where the contents of this library are dis
 Download
 --------
 
-Download [the latest JAR][2] or grab via Maven:
-
-```xml
-<dependency>
-    <groupId>com.michaelrnovak.objectcursor</groupId>
-    <artifactId>objectcursor</artifactId>
-    <version>(insert latest version)</version>
-</dependency>
-```
+Download [the latest JAR][2]. Once the library has reached 1.0 it'll be available on Maven.
 
 Building
 --------
@@ -43,4 +37,4 @@ License
     limitations under the License.
 
 [1]: https://developers.google.com/events/io/sessions/326148829
-[2]: http://www.somewhere.com/replace/me
+[2]: https://s3.amazonaws.com/michaelnovakjr/objectcursor-0.9.0.zip
