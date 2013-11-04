@@ -20,6 +20,7 @@ import android.database.ContentObserver;
 import android.database.Cursor;
 import android.database.DataSetObserver;
 import android.os.Handler;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -41,6 +42,8 @@ public abstract class ObjectCursorAdapter<T> extends BaseAdapter implements Filt
 
     protected ObjectFilterQueryProvider<T> mFilterQueryProvider;
     protected ObjectCursorFilter<T> mObjectCursorFilter;
+
+    protected int mDropdownResource;
 
     public ObjectCursorAdapter(Context context, ObjectCursor<T> cursor) {
         init(context, cursor);
@@ -166,7 +169,15 @@ public abstract class ObjectCursorAdapter<T> extends BaseAdapter implements Filt
     public abstract View newView(Context context, T model, ViewGroup parent);
 
     public View newDropDownView(Context context, T model, ViewGroup parent) {
-        return newView(context, model, parent);
+        return createViewFromResource(parent, mDropdownResource);
+    }
+
+    private View createViewFromResource(ViewGroup parent, int resource) {
+        return LayoutInflater.from(mContext).inflate(resource, parent, false);
+    }
+
+    public void setDropDownViewResource(int resource) {
+        mDropdownResource = resource;
     }
 
     @Override
