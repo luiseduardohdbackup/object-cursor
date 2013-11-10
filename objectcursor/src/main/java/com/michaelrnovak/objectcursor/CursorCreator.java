@@ -24,18 +24,12 @@ import android.database.Cursor;
  */
 public interface CursorCreator<T> {
     /**
-     * Creates an object using the current row of the cursor given here. The implementation should not advance/rewind
-     * the cursor, and is only allowed to read the existing row.
+     * Creates a model mapping to the cursor schema. The implementation should be agnostic
+     * to the current row.
      *
-     * @param cursor The cursor object pointed at the row the object should be created from.
-     * @return A real object built from the current row of the cursor.
+     * @param cursor The cursor object, typically positioned before the first row.
+     * @return A model representing the schema of the cursor, but is not tied to a particular
+     *     row.
      */
     T createFromCursor(Cursor cursor);
-
-    /**
-     * Creates a ContentValues object for use with ContentProvider operations.
-     *
-     * @return ContentValues object representing the properties in the implementing object.
-     */
-    ContentValues toContentValues();
 }

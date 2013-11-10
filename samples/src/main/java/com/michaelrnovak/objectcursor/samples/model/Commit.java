@@ -15,7 +15,6 @@
  */
 package com.michaelrnovak.objectcursor.samples.model;
 
-import android.content.ContentValues;
 import android.database.Cursor;
 
 import com.michaelrnovak.objectcursor.CursorCreator;
@@ -23,106 +22,42 @@ import com.michaelrnovak.objectcursor.samples.provider.SampleContract;
 
 import java.util.Date;
 
-public class Commit implements CursorCreator<Commit> {
-    public static final Commit FACTORY = new Commit();
+public class Commit {
+    private final Cursor mCursor;
 
-    private String mMessage;
-    private String mUrl;
-    private String mCommitSha;
-    private Date mCommitDate;
-
-    private String mAuthorAvatar;
-    private String mAuthorName;
-    private String mAuthorEmail;
-
-    public String getMessage() {
-        return mMessage;
+    private Commit(Cursor cursor) {
+        if (cursor == null) {
+            throw new NullPointerException("cursor is null");
+        }
+        mCursor = cursor;
     }
 
-    public void setMessage(String message) {
-        mMessage = message;
+    public String getMessage() {
+        return mCursor.getString(Query.MESSAGE);
     }
 
     public String getUrl() {
-        return mUrl;
-    }
-
-    public void setUrl(String url) {
-        mUrl = url;
+        return mCursor.getString(Query.URL);
     }
 
     public Date getDate() {
-        return mCommitDate;
-    }
-
-    public void setDate(Date date) {
-        mCommitDate = date;
-    }
-
-    public void setDate(long date) {
-        mCommitDate = new Date(date);
+        return new Date(mCursor.getLong(Query.COMMIT_DATE));
     }
 
     public String getSha() {
-        return mCommitSha;
-    }
-
-    public void setSha(String sha) {
-        mCommitSha = sha;
+        return mCursor.getString(Query.COMMIT_SHA);
     }
 
     public String getAuthorAvatar() {
-        return mAuthorAvatar;
-    }
-
-    public void setAuthorAvatar(String avatar) {
-        mAuthorAvatar = avatar;
+        return mCursor.getString(Query.AUTHOR_AVATAR);
     }
 
     public String getAuthorName() {
-        return mAuthorName;
-    }
-
-    public void setAuthorName(String name) {
-        mAuthorName = name;
+        return mCursor.getString(Query.AUTHOR_NAME);
     }
 
     public String getAuthorEmail() {
-        return mAuthorEmail;
-    }
-
-    public void setAuthorEmail(String email) {
-        mAuthorEmail = email;
-    }
-
-    @Override
-    public Commit createFromCursor(Cursor cursor) {
-        Commit commit = new Commit();
-
-        commit.setMessage(cursor.getString(Query.MESSAGE));
-        commit.setUrl(cursor.getString(Query.URL));
-        commit.setDate(cursor.getLong(Query.COMMIT_DATE));
-        commit.setSha(cursor.getString(Query.COMMIT_SHA));
-        commit.setAuthorAvatar(cursor.getString(Query.AUTHOR_AVATAR));
-        commit.setAuthorEmail(cursor.getString(Query.AUTHOR_EMAIL));
-        commit.setAuthorName(cursor.getString(Query.AUTHOR_NAME));
-
-        return commit;
-    }
-
-    @Override
-    public ContentValues toContentValues() {
-        ContentValues values = new ContentValues();
-
-        values.put(SampleContract.Commits.MESSAGE, getMessage());
-        values.put(SampleContract.Commits.URL, getUrl());
-        values.put(SampleContract.Commits.COMMIT_DATE, getDate().getTime());
-        values.put(SampleContract.Commits.SHA, getSha());
-        values.put(SampleContract.Commits.AUTHOR_AVATAR, getAuthorAvatar());
-        values.put(SampleContract.Commits.AUTHOR_EMAIL, getAuthorEmail());
-        values.put(SampleContract.Commits.AUTHOR_NAME, getAuthorName());
-
-        return values;
+        return mCursor.getString(Query.AUTHOR_EMAIL);
     }
 
     public static class Query {
@@ -146,4 +81,11 @@ public class Commit implements CursorCreator<Commit> {
         public static final int COMMIT_DATE = 6;
         public static final int COMMIT_SHA = 7;
     }
+
+    public static final CursorCreator<Commit> FACTORY = new CursorCreator<Commit>() {
+        @Override
+        public Commit createFromCursor(Cursor cursor) {
+            return new Commit(cursor);
+        }
+    };
 }

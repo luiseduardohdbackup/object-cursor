@@ -84,8 +84,7 @@ public abstract class ObjectCursorAdapter<T> extends BaseAdapter implements Filt
 
     public T getItem(int position) {
         if (mDataValid && mObjectCursor != null) {
-            mObjectCursor.moveToPosition(position);
-            return mObjectCursor.getModel();
+            return mObjectCursor.getModel(position);
         }
 
         return null;
@@ -111,12 +110,8 @@ public abstract class ObjectCursorAdapter<T> extends BaseAdapter implements Filt
             throw new IllegalStateException("Adapter should only call getView() when the cursor is valid");
         }
 
-        if (!mObjectCursor.moveToPosition(position)) {
-            throw new IllegalStateException("Couldn't move cursor to position: " + position);
-        }
-
         View view;
-        T model = mObjectCursor.getModel();
+        T model = mObjectCursor.getModel(position);
 
         if (convertView == null) {
             view = newView(mContext, model, parent);
@@ -131,10 +126,8 @@ public abstract class ObjectCursorAdapter<T> extends BaseAdapter implements Filt
     @Override
     public View getDropDownView(int position, View convertView, ViewGroup parent) {
         if (mDataValid) {
-            mObjectCursor.moveToPosition(position);
-
             View view;
-            T model = mObjectCursor.getModel();
+            T model = mObjectCursor.getModel(position);
 
             if (convertView == null) {
                 view = newDropDownView(mContext, model, parent);
