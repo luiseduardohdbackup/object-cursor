@@ -21,74 +21,25 @@ import android.database.CursorWrapper;
 import android.util.SparseArray;
 
 public class ObjectCursor<T> extends CursorWrapper {
-    private final SparseArray<T> mCache;
-    private final CursorCreator<T> mFactory;
-
     /* Access to the cursor in a cursor wrapper wasn't added until Honeycomb. */
     private Cursor mCursor;
 
-    public ObjectCursor(Cursor cursor, CursorCreator<T> factory) {
+    private T mModel;
+
+    public ObjectCursor(Cursor cursor, T model) {
         super(cursor);
-
-        if (AndroidUtils.isHoneycomb()) {
-            mCursor = cursor;
-        }
-
-        if (cursor != null) {
-            mCache = new SparseArray<T>(cursor.getCount());
-        } else {
-            mCache = null;
-        }
-
-        mFactory = factory;
+        mCursor = cursor;
+        mModel = model;
     }
 
-    public final T getModel() {
-        final Cursor cursor = getCursor();
-
-        if (cursor == null) {
-            return null;
+    public final T getModel(int position) {
+        if (!mCursor.moveToPosition(position)) {
+            throw new IllegalArgumentException("Couldn't move to position " + position);
         }
-
-        final int currentPosition = cursor.getPosition();
-        final T cachedModel = mCache.get(currentPosition);
-
-        if (cachedModel != null) {
-            return cachedModel;
-        }
-
-        final T model = mFactory.createFromCursor(cursor);
-        mCache.put(currentPosition, model);
-        return model;
-    }
-
-    final void fillCache() {
-        final Cursor cursor = getCursor();
-
-        if (cursor == null) {
-            return;
-        }
-
-        while (cursor.moveToNext()) {
-            getModel();
-        }
+        return mModel;
     }
 
     public Cursor getCursor() {
-        if (AndroidUtils.isHoneycomb()) {
-            return getWrappedCursor();
-        } else {
-            return mCursor;
-        }
-    }
-
-    @Override
-    public void close() {
-        super.close();
-        mCache.clear();
-
-        if (mCursor != null) {
-            mCursor.close();
-        }
+        return mCursor;
     }
 }

@@ -68,11 +68,10 @@ public class ObjectCursorLoader<T> extends AsyncTaskLoader<ObjectCursor<T>> {
         if (inner != null) {
             inner.getCount();
             inner.registerContentObserver(mObserver);
+            return createObjectCursor(inner);
+        } else {
+            return null;
         }
-
-        final ObjectCursor<T> cursor = getObjectCursor(inner);
-        cursor.fillCache();
-        return cursor;
     }
 
     @Override
@@ -132,8 +131,9 @@ public class ObjectCursorLoader<T> extends AsyncTaskLoader<ObjectCursor<T>> {
         mCursor = null;
     }
 
-    protected ObjectCursor<T> getObjectCursor(Cursor cursor) {
-        return new ObjectCursor<T>(cursor, mFactory);
+    protected ObjectCursor<T> createObjectCursor(Cursor cursor) {
+        T model = mFactory.createFromCursor(cursor);
+        return new ObjectCursor<T>(cursor, model);
     }
 
     protected final void setUri(Uri uri) {
